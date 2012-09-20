@@ -23,17 +23,22 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        UIImageView *clockFace = [[UIImageView alloc] initWithFrame:self.frame];
-        clockFace.image = [UIImage imageNamed:@"LLClockFace.png"];
         self.backgroundColor = [UIColor clearColor];
+        CGRect frame = CGRectMake(5, 5, self.frame.size.width - 10, self.frame.size.height - 10);
+        
+        // Add the clock face (numbers)
+        UIImageView *clockFace = [[UIImageView alloc] initWithFrame:frame];
+        clockFace.image = [UIImage imageNamed:@"LLClockFace.png"];
+        clockFace.alpha = 0.75;
+        [self addSubview:clockFace];
         
         // Add the big hand
-        self.bigHand = [[LLClockBigHand alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        self.bigHand = [[LLClockBigHand alloc] initWithFrame:frame];
         bigHand.backgroundColor = [UIColor clearColor];
         [self addSubview:bigHand];
         
         // Add the little hand
-        self.littleHand = [[LLClockLittleHand alloc] initWithFrame:CGRectMake(0 , 0, self.frame.size.width, self.frame.size.height)];
+        self.littleHand = [[LLClockLittleHand alloc] initWithFrame:frame];
         littleHand.backgroundColor = [UIColor clearColor];
         [self addSubview:littleHand];
         
@@ -72,23 +77,11 @@
     [UIView commitAnimations];
 }
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+/*
 - (void)drawRect:(CGRect)rect
 {
-    // Draw the clock face
-    CGContextRef c = UIGraphicsGetCurrentContext();
     
-    CGContextSelectFont (c,
-                         "Helvetica",
-                         rect.size.height / 5,
-                         kCGEncodingMacRoman);
-    CGContextSetCharacterSpacing (c, rect.size.height / 10);
-    CGContextSetTextDrawingMode (c, kCGTextFillStroke);
-    CGContextSetRGBFillColor (c, 0, 1, 0, .5);
-    CGContextSetRGBStrokeColor (c, 0, 0, 1, 1);
-    CGContextShowTextAtPoint( c, rect.size.width / 2, 0, "12", [@"12" length]);
 }
+*/
 
 @end

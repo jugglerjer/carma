@@ -27,11 +27,15 @@
     // Drawing the big hand
     CGContextRef c = UIGraphicsGetCurrentContext();
     
-    CGFloat red[4] = {1.0f, 0.0f, 0.0f, 1.0f};
-    CGContextSetStrokeColor(c, red);
+    float red = 30/255;
+    float green = 98/255;
+    float blue = 131/255;
+    
+    CGFloat color[4] = {red, green, blue, 1.0f};
+    CGContextSetStrokeColor(c, color);
     CGContextBeginPath(c);
     CGContextMoveToPoint(c, rect.size.width / 2, rect.size.height / 2);
-    CGContextAddLineToPoint(c, rect.size.width / 2, rect.size.height / 2 * 0.25);
+    CGContextAddLineToPoint(c, rect.size.width / 2, rect.size.height / 2 * 0.45);
     CGContextStrokePath(c);
 }
 

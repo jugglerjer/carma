@@ -80,7 +80,7 @@
     if (indexPath.row == 0)
     {
         // Add the early clock
-        self.earlyClock = [[LLClockView alloc] initWithFrame:CGRectMake(20, 0, cell.frame.size.height, cell.frame.size.height) andTime:[NSDate date]];
+        self.earlyClock = [[LLClockView alloc] initWithFrame:CGRectMake(10, 0, cell.frame.size.height, cell.frame.size.height) andTime:[NSDate date]];
         [cell addSubview:earlyClock];
     }
     
