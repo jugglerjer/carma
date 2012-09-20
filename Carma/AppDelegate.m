@@ -7,18 +7,90 @@
 //
 
 #import "AppDelegate.h"
+#import "CarmaCalendarViewController.h"
+#import "CarmaDriver.h"
+#import "SBJSON.h"
+
+static NSString* const DeviceTokenKey = @"DeviceToken";
 
 @implementation AppDelegate
 
 @synthesize window = _window;
+@synthesize rootViewController;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // Set up the root view
+    // -----------------------
+    
+    self.rootViewController = [[CarmaRootViewController alloc] init];
+    
+    [self.window addSubview:rootViewController.view];
+    //self.window.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
     [self.window makeKeyAndVisible];
+    
+    // Let the device know we want to receive push notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    if (![[NSUserDefaults standardUserDefaults] stringForKey:DeviceTokenKey]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:DeviceTokenKey];
+    }    
+
+    // ------------------------
+    // Customize button appearance
+    // ------------------------
+    UIImage *backButtonImageNormal = [UIImage imageNamed:@"nav_button_back.png"];
+    UIImage *stretchableBackButtonImageNormal = [backButtonImageNormal resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 5)];
+    
+    UIImage *backButtonImagePressed = [UIImage imageNamed:@"nav_button_back_pressed.png"];
+    UIImage *stretchableBackButtonImagePressed = [backButtonImagePressed resizableImageWithCapInsets:UIEdgeInsetsMake(0, 14, 0, 5)];
+    
+    UIImage *buttonImageNormal = [UIImage imageNamed:@"nav_button.png"];
+    UIImage *stretchableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:8 topCapHeight:8];
+    
+    UIImage *buttonImagePressed = [UIImage imageNamed:@"nav_button_pressed.png"];
+    UIImage *stretchableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:8 topCapHeight:8];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:stretchableBackButtonImageNormal
+                                                      forState:UIControlStateNormal
+                                                    barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:stretchableBackButtonImagePressed
+                                                      forState:UIControlStateHighlighted
+                                                    barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setBackgroundImage:stretchableButtonImageNormal
+                                            forState:UIControlStateNormal
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setBackgroundImage:stretchableButtonImagePressed
+                                            forState:UIControlStateHighlighted
+                                          barMetrics:UIBarMetricsDefault];
+    
+    
     return YES;
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    
+    NSString *newToken = [deviceToken description];
+    newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    //NSLog(@"My token is: %@", newToken);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:newToken forKey:DeviceTokenKey];
+    
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
