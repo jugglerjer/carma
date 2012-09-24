@@ -85,6 +85,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Carma"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
