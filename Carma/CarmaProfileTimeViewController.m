@@ -36,6 +36,7 @@
         timeTable.dataSource = self;
         timeTable.delegate = self;
         timeTable.backgroundColor = [UIColor clearColor];
+        [self.timeTable setBackgroundView:nil];
         [self.view addSubview:timeTable];
         
         // Add date picker

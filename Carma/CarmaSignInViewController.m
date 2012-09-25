@@ -99,7 +99,9 @@ static NSString* const FirstNameKey = @"FirstName";
                                         self.view.frame.size.height - 44);
         
         UITableView *signinTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
-        signinTable.backgroundColor = [UIColor clearColor];
+//        signinTable.backgroundColor = [UIColor clearColor];
+        signinTable.backgroundColor = nil;
+        [signinTable setBackgroundView:nil];
         signinTable.delegate = self;
         signinTable.dataSource = self;
         [self.view addSubview:signinTable];

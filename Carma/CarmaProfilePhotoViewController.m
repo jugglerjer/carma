@@ -28,6 +28,7 @@
     
     UITableView *photoTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
     photoTable.backgroundColor = [UIColor clearColor];
+    [photoTable setBackgroundView:nil];
     photoTable.delegate = self;
     photoTable.dataSource = self;
     [self.view addSubview:photoTable];

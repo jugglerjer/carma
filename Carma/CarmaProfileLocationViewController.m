@@ -123,7 +123,7 @@
     [geocoder geocodeAddressDictionary:locationDictionary
                  completionHandler:^(NSArray* placemarks, NSError* error){
                      CLPlacemark *mark = [placemarks objectAtIndex:0];
-                     [self addAnnotationWithPlacemark:mark];
+                     if (mark) {[self addAnnotationWithPlacemark:mark];}
                  }];
 }
 
@@ -180,6 +180,7 @@
     
     self.signupTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
     signupTable.backgroundColor = [UIColor clearColor];
+    [self.signupTable setBackgroundView:nil];
     signupTable.delegate = self;
     signupTable.dataSource = self;
     [self.view addSubview:signupTable];

@@ -171,6 +171,7 @@ static NSString* const ChooserText = @"I've got a good one...";
     
     self.table = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStyleGrouped];
     table.backgroundColor = [UIColor clearColor];
+    [self.table setBackgroundView:nil];
     table.delegate = self;
     table.dataSource = self;
     [self.view addSubview:table];
